@@ -122,29 +122,28 @@ export const CompatibilityView = () => {
                   <motion.circle 
                     cx="50" cy="50" r="45" 
                     fill="none" 
-                    stroke="url(#gradient)" 
+                    stroke="var(--neon)" 
                     strokeWidth="8" 
                     strokeDasharray="283"
                     initial={{ strokeDashoffset: 283 }}
                     animate={{ strokeDashoffset: 283 - (283 * result.score) / 100 }}
                     transition={{ duration: 1.5, ease: "easeOut" }}
                     strokeLinecap="round"
+                    style={{ filter: 'drop-shadow(0 0 5px var(--neon))' }}
                   />
-                  <defs>
-                    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                      <stop offset="0%" stopColor="#ffffff" />
-                      <stop offset="100%" stopColor="#666666" />
-                    </linearGradient>
-                  </defs>
+                  <defs />
                 </svg>
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-3xl font-black">{result.score}%</span>
+                  <div className="flex flex-col items-center">
+                    <span className="text-3xl font-black">{result.score}%</span>
+                    <span className="text-[8px] font-black uppercase tracking-widest px-1.5 py-0.5 brutal-border bg-white text-black mt-1">Vibe Score</span>
+                  </div>
                 </div>
               </div>
-              <h3 className="text-xl font-bold text-white mb-2">{result.verdict}</h3>
+              <h3 className="text-xl font-black tracking-tight mb-2 uppercase" style={{ color: 'var(--neon)' }}>{result.verdict}</h3>
               <div className="flex flex-wrap justify-center gap-2">
                 {result.sharedInterests.map(tag => (
-                  <span key={tag} className="px-3 py-1 rounded-full bg-white/10 text-xs font-medium border border-white/5">
+                  <span key={tag} className="px-3 py-1 rounded-sm glass text-[10px] font-black uppercase tracking-widest brutal-border">
                     {tag}
                   </span>
                 ))}
@@ -161,7 +160,8 @@ export const CompatibilityView = () => {
                   <motion.div 
                     initial={{ width: 0 }}
                     animate={{ width: `${result.toneSimilarity}%` }}
-                    className="h-full bg-white"
+                    className="h-full"
+                    style={{ backgroundColor: 'var(--neon)' }}
                   />
                 </div>
               </div>
@@ -174,7 +174,8 @@ export const CompatibilityView = () => {
                   <motion.div 
                     initial={{ width: 0 }}
                     animate={{ width: `${result.postingStyleMatch}%` }}
-                    className="h-full bg-white/60"
+                    className="h-full"
+                    style={{ backgroundColor: 'var(--text)' }}
                   />
                 </div>
               </div>
@@ -187,7 +188,8 @@ export const CompatibilityView = () => {
                   <motion.div 
                     initial={{ width: 0 }}
                     animate={{ width: `${result.engagementPatternMatch}%` }}
-                    className="h-full bg-white/30"
+                    className="h-full"
+                    style={{ backgroundColor: 'var(--text)', opacity: 0.3 }}
                   />
                 </div>
               </div>
@@ -263,21 +265,21 @@ export const InterestMapView = () => {
                 <Radar
                   name="Posted About"
                   dataKey="posted"
-                  stroke="#ffffff"
-                  fill="#ffffff"
+                  stroke="var(--text)"
+                  fill="var(--text)"
                   fillOpacity={0.6}
                 />
                 <Radar
                   name="Engaged With"
                   dataKey="engaged"
-                  stroke="#666666"
-                  fill="#666666"
+                  stroke="var(--neon)"
+                  fill="var(--neon)"
                   fillOpacity={0.4}
                 />
                 <Legend />
                 <Tooltip 
-                  contentStyle={{ backgroundColor: '#1a1a1e', borderColor: 'rgba(255,255,255,0.1)', borderRadius: '12px' }}
-                  itemStyle={{ color: '#fff' }}
+                  contentStyle={{ backgroundColor: 'var(--bg)', borderColor: 'var(--border)', borderRadius: '12px' }}
+                  itemStyle={{ color: 'var(--text)' }}
                 />
               </RadarChart>
             </ResponsiveContainer>
@@ -412,13 +414,13 @@ export const TrendView = () => {
               <XAxis dataKey="date" stroke="rgba(255,255,255,0.3)" tick={{ fontSize: 12 }} />
               <YAxis stroke="rgba(255,255,255,0.3)" tick={{ fontSize: 12 }} />
               <Tooltip 
-                contentStyle={{ backgroundColor: '#1a1a1e', borderColor: 'rgba(255,255,255,0.1)', borderRadius: '12px' }}
-                itemStyle={{ color: '#fff' }}
+                contentStyle={{ backgroundColor: 'var(--bg)', borderColor: 'var(--border)', borderRadius: '12px' }}
+                itemStyle={{ color: 'var(--text)' }}
                 content={({ active, payload }) => {
                   if (active && payload && payload.length) {
                     const data = payload[0].payload;
                     return (
-                      <div className="bg-[#1a1a1e] border border-white/10 p-3 rounded-xl shadow-2xl">
+                      <div className="glass border border-white/10 p-3 rounded-xl shadow-2xl">
                         <p className="text-white/50 text-xs mb-1">{data.date}</p>
                         <p className="font-bold text-white">Sentiment: {data.sentiment}</p>
                         <p className="text-sm">Tone: <span className="text-white/70">{data.tone}</span></p>
@@ -432,10 +434,10 @@ export const TrendView = () => {
               <Line 
                 type="monotone" 
                 dataKey="sentiment" 
-                stroke="#ffffff" 
+                stroke="var(--neon)" 
                 strokeWidth={4}
-                dot={{ fill: '#ffffff', strokeWidth: 2, r: 6 }}
-                activeDot={{ r: 8, stroke: '#000', strokeWidth: 2 }}
+                dot={{ fill: 'var(--neon)', strokeWidth: 2, r: 6 }}
+                activeDot={{ r: 8, stroke: 'var(--bg)', strokeWidth: 2 }}
               />
             </LineChart>
           </ResponsiveContainer>
@@ -540,8 +542,8 @@ export const ComparisonView = () => {
               <XAxis dataKey="name" stroke="rgba(255,255,255,0.3)" />
               <YAxis stroke="rgba(255,255,255,0.3)" />
               <Tooltip 
-                contentStyle={{ backgroundColor: '#1a1a1e', borderColor: 'rgba(255,255,255,0.1)', borderRadius: '12px' }}
-                itemStyle={{ color: '#fff' }}
+                contentStyle={{ backgroundColor: 'var(--bg)', borderColor: 'var(--border)', borderRadius: '12px' }}
+                itemStyle={{ color: 'var(--text)' }}
               />
               <Legend />
               {users.map((u, i) => (
@@ -580,7 +582,7 @@ export const ShareableView = () => {
     if (cardRef.current) {
       const dataUrl = await toPng(cardRef.current, { cacheBust: true });
       const link = document.createElement('a');
-      link.download = `vibe-check-${handle}.png`;
+      link.download = `vibe-irl-${handle}.png`;
       link.href = dataUrl;
       link.click();
     }
@@ -626,34 +628,47 @@ export const ShareableView = () => {
 
               <div className="flex flex-wrap gap-2 mb-6">
                 {user.vibeTags.map(tag => (
-                  <div key={tag.label} className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[9px] uppercase tracking-[0.2em] font-black flex items-center gap-1">
+                  <div key={tag.label} className="px-3 py-1 rounded-full glass border border-white/10 text-[9px] uppercase tracking-[0.2em] font-black flex items-center gap-1">
                     {tag.emoji} {tag.label}
                   </div>
                 ))}
               </div>
 
+              <div className="mb-6">
+                <p className="text-[8px] uppercase tracking-[0.3em] text-white/30 font-black mb-3 flex items-center gap-2">
+                  <Brain size={10} className="text-[#00FF00]" /> Core Traits
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {user.personalityTraits.map(trait => (
+                    <span key={trait} className="px-2 py-1 rounded bg-white/5 border border-white/10 text-[10px] font-mono text-[#00FF00]">
+                      #{trait.toLowerCase()}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
               <div className="flex-1">
-                <p className="text-sm text-white/80 leading-relaxed mb-8 font-medium">
+                <p className="text-sm text-white/80 leading-relaxed mb-6 font-medium line-clamp-3">
                   {user.summary}
                 </p>
                 
-                <div className="space-y-6">
-                  <div className="space-y-2">
+                <div className="space-y-4">
+                  <div className="space-y-1.5">
                     <div className="flex justify-between items-end">
                       <span className="text-[9px] uppercase tracking-[0.2em] text-white/40 font-black">Chaos Level</span>
                       <span className="text-[#00FF00] font-mono text-xs">{user.stats.chaos}%</span>
                     </div>
-                    <div className="h-1.5 bg-white/5 rounded-full overflow-hidden border border-white/5">
+                    <div className="h-1 bg-white/5 rounded-full overflow-hidden border border-white/5">
                       <div className="h-full bg-[#00FF00] shadow-[0_0_10px_rgba(0,255,0,0.5)]" style={{ width: `${user.stats.chaos}%` }} />
                     </div>
                   </div>
                   
-                  <div className="space-y-2">
+                  <div className="space-y-1.5">
                     <div className="flex justify-between items-end">
                       <span className="text-[9px] uppercase tracking-[0.2em] text-white/40 font-black">Positivity</span>
                       <span className="text-white font-mono text-xs">{user.stats.positivity}%</span>
                     </div>
-                    <div className="h-1.5 bg-white/5 rounded-full overflow-hidden border border-white/5">
+                    <div className="h-1 bg-white/5 rounded-full overflow-hidden border border-white/5">
                       <div className="h-full bg-white" style={{ width: `${user.stats.positivity}%` }} />
                     </div>
                   </div>
@@ -663,7 +678,7 @@ export const ShareableView = () => {
               <div className="mt-auto pt-6 border-t border-white/10 flex justify-between items-center">
                 <div className="flex flex-col">
                   <span className="text-[8px] uppercase tracking-[0.3em] text-white/30 font-black">System Output</span>
-                  <span className="text-xs font-black tracking-tighter text-[#00FF00]">VIBECHECK.OS</span>
+                  <span className="text-xs font-black tracking-tighter text-[#00FF00]">VIBEIRL.OS</span>
                 </div>
                 <div className="w-10 h-10 bg-[#00FF00]/5 rounded-xl flex items-center justify-center border border-[#00FF00]/20">
                   <Zap size={16} className="text-[#00FF00]" fill="#00FF00" />

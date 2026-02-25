@@ -40,7 +40,8 @@ export const mockUsers: Record<string, UserVibeProfile> = {
       chaos: 92,
       intellect: 88,
       humor: 78
-    }
+    },
+    personalityTraits: ['Visionary', 'Unpredictable', 'Disruptive']
   },
   'taylorswift13': {
     handle: 'taylorswift13',
@@ -81,7 +82,8 @@ export const mockUsers: Record<string, UserVibeProfile> = {
       chaos: 15,
       intellect: 90,
       humor: 60
-    }
+    },
+    personalityTraits: ['Strategic', 'Poetic', 'Empathetic']
   }
 };
 
@@ -160,6 +162,7 @@ export const getRandomUser = (handle: string): UserVibeProfile => {
       chaos: 40,
       intellect: 70,
       humor: 50
-    }
+    },
+    personalityTraits: ['Adventurous', 'Curious', 'Chill']
   };
 };

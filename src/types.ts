@@ -34,6 +34,7 @@ export interface UserVibeProfile {
     intellect: number;
     humor: number;
   };
+  personalityTraits: string[];
 }
 
 export interface CompatibilityResult {
